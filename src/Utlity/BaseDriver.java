@@ -24,7 +24,7 @@ public class BaseDriver {
 
         driver = new ChromeDriver();
 
-        //driver.manage().window().maximize(); // Ekranı max yapıyor.
+        driver.manage().window().maximize(); // Ekranı max yapıyor.
 
         Duration dr=Duration.ofSeconds(30);
         driver.manage().timeouts().pageLoadTimeout(dr);
