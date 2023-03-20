@@ -1,7 +1,7 @@
 package TestingProject_02;
 
-import Utlity.BaseDriver;
-import Utlity.MyFunc;
+import org.openqa.selenium.JavascriptExecutor;
+import utility.BaseDriver;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -17,7 +17,7 @@ import java.time.Duration;
 public class TestingProject_02 extends BaseDriver {
 
     @Test
-    public void test1() {
+    public void test01() {
         driver.get("http://demowebshop.tricentis.com/");
 
         Actions actions = new Actions(driver);
@@ -39,9 +39,9 @@ public class TestingProject_02 extends BaseDriver {
         action.perform();
 
         WebElement eMail = driver.findElement(By.id("Email"));
-        // Test esnasında her defasında mail değiştirmemek için random mail oluşturma satırı
-         action = actions.moveToElement(eMail).click().sendKeys("testing" + ((int) (Math.random() * 10000)) + "@testing.com").build();
-        // Normal şartlarda sabit duracak olan mail oluşturma satırı :
+        // Random mail generation line to not change mail every time during the test
+        action = actions.moveToElement(eMail).click().sendKeys("testing" + ((int) (Math.random() * 10000)) + "@testing.com").build();
+        // The mail creation line that will remain fixed under normal conditions:
         // action = actions.moveToElement(eMail).click().sendKeys("testing@testing.com").build();
         action.perform();
 
@@ -61,7 +61,7 @@ public class TestingProject_02 extends BaseDriver {
 
         Assert.assertEquals("Your registration completed", confirmation.getText());
 
-        // Test 2'de yeniden register işlemi yapılacağından logout yapıldı.
+        // Since re-registration will be done in Test 2, logout was made.
         WebElement logout = driver.findElement(By.linkText("Log out"));
         action = actions.moveToElement(logout).click().build();
         action.perform();
@@ -69,7 +69,7 @@ public class TestingProject_02 extends BaseDriver {
     }
 
     @Test
-    public void test2() {
+    public void test02() {
         driver.get("http://demowebshop.tricentis.com/");
 
         Actions actions = new Actions(driver);
@@ -112,7 +112,7 @@ public class TestingProject_02 extends BaseDriver {
     }
 
     @Test
-    public void test3() {
+    public void test03() {
         driver.get("http://demowebshop.tricentis.com/");
 
         Actions actions = new Actions(driver);
@@ -137,22 +137,23 @@ public class TestingProject_02 extends BaseDriver {
 
         Assert.assertTrue(logout.isDisplayed());
 
-        // Test 4'de yeniden login işlemi yapılacağından logout yapıldı.
+        // Since there will be a re-login process in Test 4, logout has been made.
         action = actions.moveToElement(logout).click().build();
         action.perform();
     }
 
     @Test
-    public void test4() {
+    public void test04() {
         driver.get("http://demowebshop.tricentis.com/");
 
-        WebElement login = driver.findElement(By.linkText("Log in"));
         Actions actions = new Actions(driver);
+
+        WebElement login = driver.findElement(By.linkText("Log in"));
         Action action = actions.moveToElement(login).click().build();
         action.perform();
 
         WebElement eMail = driver.findElement(By.id("Email"));
-        // Hatalı mail girişi istendiğinden random mail oluşturma satırı
+        // Random mail creation line because wrong mail entry is requested
         action = actions.moveToElement(eMail).click().sendKeys("testing" + ((int) (Math.random() * 10000)) + "@testing.com").build();
         action.perform();
 
@@ -170,13 +171,13 @@ public class TestingProject_02 extends BaseDriver {
     }
 
     @Test
-    public void test5() {
+    public void test05() {
         driver.get("http://demowebshop.tricentis.com/");
 
         Actions actions = new Actions(driver);
 
-        Duration duration=Duration.ofSeconds(30);
-        WebDriverWait wait=new WebDriverWait(driver, duration);
+        Duration duration = Duration.ofSeconds(30);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
 
         WebElement login = driver.findElement(By.linkText("Log in"));
         Action action = actions.moveToElement(login).click().build();
@@ -239,61 +240,50 @@ public class TestingProject_02 extends BaseDriver {
         countrySelectMenu.selectByValue("77");
 
         WebElement city = driver.findElement(By.id("BillingNewAddress_City"));
-        action=actions.moveToElement(city).click().sendKeys("Ankara").build();
+        action = actions.moveToElement(city).click().sendKeys("Ankara").build();
         action.perform();
 
-        WebElement address1= driver.findElement(By.id("BillingNewAddress_Address1"));
+        WebElement address1 = driver.findElement(By.id("BillingNewAddress_Address1"));
         action = actions.moveToElement(address1).click().sendKeys("Kavaklıdere").build();
         action.perform();
 
         WebElement zipCode = driver.findElement(By.name("BillingNewAddress.ZipPostalCode"));
-        action=actions.moveToElement(zipCode).click().sendKeys("06000").build();
+        action = actions.moveToElement(zipCode).click().sendKeys("06000").build();
         action.perform();
 
         WebElement phoneNumber = driver.findElement(By.id("BillingNewAddress_PhoneNumber"));
-        action=actions.moveToElement(phoneNumber).click().sendKeys("060123456789").build();
+        action = actions.moveToElement(phoneNumber).click().sendKeys("060123456789").build();
         action.perform();
 
-        WebElement continueButtonBillingAddress=driver.findElement(By.xpath("(//input[@title='Continue'])[1]"));
-        action=actions.moveToElement(continueButtonBillingAddress).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@title='Continue'])[1]")));
+        WebElement continueButtonBillingAddress = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@title='Continue'])[1]")));
+        action = actions.moveToElement(continueButtonBillingAddress).click().build();
         action.perform();
 
-        WebElement continueButtonShippingAddress=driver.findElement(By.xpath("//input[@onclick='Shipping.save()']"));
-        action=actions.moveToElement(continueButtonShippingAddress).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='Shipping.save()']")));
+        WebElement continueButtonShippingAddress = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='Shipping.save()']")));
+        action = actions.moveToElement(continueButtonShippingAddress).click().build();
         action.perform();
 
-        WebElement continueButtonShippingMethod=driver.findElement(By.xpath("//input[@onclick='ShippingMethod.save()']"));
-        action=actions.moveToElement(continueButtonShippingMethod).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='ShippingMethod.save()']")));
+        WebElement continueButtonShippingMethod = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='ShippingMethod.save()']")));
+        action = actions.moveToElement(continueButtonShippingMethod).click().build();
         action.perform();
 
-        WebElement moneyOrder=driver.findElement(By.id("paymentmethod_1"));
-        action=actions.moveToElement(moneyOrder).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("paymentmethod_1")));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        WebElement continueButtonPaymentMethod =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentMethod.save()']")));
+        js.executeScript("arguments[0].click();", continueButtonPaymentMethod);
+
+        WebElement continueButtonPaymentInformation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentInfo.save()']")));
+        action = actions.moveToElement(continueButtonPaymentInformation).click().build();
         action.perform();
 
-        MyFunc.Bekle(3);
-        WebElement continueButtonPaymentMethod=driver.findElement(By.xpath("//input[@onclick='PaymentMethod.save()']"));
-        action=actions.moveToElement(continueButtonPaymentMethod).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentMethod.save()']")));
+        WebElement confirmOrderButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='ConfirmOrder.save()']")));
+        action = actions.moveToElement(confirmOrderButton).click().build();
         action.perform();
 
-        WebElement continueButtonPaymentInformation=driver.findElement(By.xpath("//input[@onclick='PaymentInfo.save()']"));
-        action=actions.moveToElement(continueButtonPaymentInformation).click().build();
-        MyFunc.Bekle(10);
-        action.perform();
-
-        WebElement confirmOrderButton=driver.findElement(By.xpath("//input[@onclick='ConfirmOrder.save()']"));
-        action=actions.moveToElement(confirmOrderButton).click().build();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='ConfirmOrder.save()']")));
-        action.perform();
-
-        WebElement lastConfirmation=driver.findElement(By.xpath("//strong[text()='Your order has been successfully processed!']"));
+        WebElement lastConfirmation = driver.findElement(By.xpath("//strong[text()='Your order has been successfully processed!']"));
 
         Assert.assertEquals("Your order has been successfully processed!", lastConfirmation.getText());
 
-        BekleKapat();
+        waitAndClose();
     }
 }

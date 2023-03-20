@@ -1,4 +1,4 @@
-Techno Study Testing Project 2
+Testing Project 2
 
 url: http://demowebshop.tricentis.com/
 
@@ -6,6 +6,7 @@ url: http://demowebshop.tricentis.com/
  ➢ Action class kullanılacak
 
  Test Senaryoları
+
 
 Senaryo 1: Kayıt oluşturma Testi
 
@@ -16,25 +17,32 @@ Senaryo 1: Kayıt oluşturma Testi
 
 
 Senaryo 2: Negatif kayıt Testi
+
 ➢ Siteye gidin
 ➢ Register butonuna tıklayın
 ➢ Yukarda kaydolduğunuz email ile kaydolmaya calisin
 ➢ Register butonuna tıkayınız
 ➢ “The specified email already exists” mesajının görüldüğünü doğrulayınız
 
+
 Senaryo 3: Login Test
+
 ➢ Siteye gidin
 ➢ Login butonuna tıklayın
 ➢ Geçerli email ve password I giriniz
 ➢ Login butonuna tıklatınız ve login olduğunuzu doğrulayınız
 
+
 Senaryo 4: Negatif Login Test
+
 ➢ Siteye gidin
 ➢ Login butonuna tıklayın
 ➢ Geçersiz email veya password giriniz
 ➢ Login butonuna tıklatınız ve login olamadığınızı doğrulayınız
 
+
 Senaryo 5: Order Test
+
 ➢ Siteye gidin
 ➢ Login olun
 ➢ Computers>Notebook un altında “14.1-inch Laptop” adli ürüne tıklatınız
