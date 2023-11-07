@@ -1,16 +1,12 @@
 package TestingProject_02;
 
-import org.openqa.selenium.JavascriptExecutor;
+
 import utility.BaseDriver;
-import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
+import org.openqa.selenium.support.ui.*;
+
 
 import java.time.Duration;
 
@@ -18,6 +14,7 @@ public class TestingProject_02 extends BaseDriver {
 
     @Test
     public void test01() {
+
         driver.get("http://demowebshop.tricentis.com/");
 
         Actions actions = new Actions(driver);
@@ -269,7 +266,7 @@ public class TestingProject_02 extends BaseDriver {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        WebElement continueButtonPaymentMethod =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentMethod.save()']")));
+        WebElement continueButtonPaymentMethod = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentMethod.save()']")));
         js.executeScript("arguments[0].click();", continueButtonPaymentMethod);
 
         WebElement continueButtonPaymentInformation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@onclick='PaymentInfo.save()']")));
